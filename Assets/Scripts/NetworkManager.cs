@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Photon.Pun.Demo.PunBasics;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -23,6 +24,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public Button[] CellBtn;
     public Button PreviousBtn;
     public Button NextBtn;
+
+    [Header("UserPanel")]
+    public GameObject UserPanel;
+    public TMP_Text[] PlayerName;
+    public Button StartButton;
+    public TMP_Text ReadyText;
+    private bool[] isReady;
 
     [Header("ETC")]
     public TMP_Text StatusText;
@@ -115,7 +123,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("Main"); // 방에 들어가면 GameScene으로 이동
+        LobbyPanel.SetActive(false);
+        UserPanel.SetActive(true);
+
+        foreach (KeyValuePair<int, Photon.Realtime.Player> entry in PhotonNetwork.CurrentRoom.Players)
+        {
+            int index = entry.Value.ActorNumber - 1;
+            Photon.Realtime.Player player = entry.Value;
+
+            PlayerName[index].text = player.NickName;
+        }
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) { RoomInput.text = ""; CreateRoom(); }
@@ -124,7 +141,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        // 방 정보 갱신, 다른 플레이어가 들어왔을 때 처리 (필요 시)
+        foreach (KeyValuePair<int, Photon.Realtime.Player> entry in PhotonNetwork.CurrentRoom.Players)
+        {
+            int index = entry.Value.ActorNumber - 1;
+            Photon.Realtime.Player player = entry.Value;
+
+            PlayerName[index].text = player.NickName;
+        }
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -132,4 +155,32 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // 방 정보 갱신, 플레이어가 나갔을 때 처리 (필요 시)
     }
     #endregion
+
+    public void Ready()
+    {
+        int index = PhotonNetwork.LocalPlayer.ActorNumber;
+        photonView.RPC("SetReadyState", RpcTarget.All, index - 1);
+    }
+
+    [PunRPC]
+    void SetReadyState(int playerIndex)
+    {
+        isReady[playerIndex] = !isReady[playerIndex] ? true : false;
+        if (isReady[0]) PlayerName[0].color = Color.green;
+        else PlayerName[0].color = Color.yellow;
+        if (isReady[1]) PlayerName[1].color = Color.green;
+        else PlayerName[1].color = Color.yellow;
+        if (PhotonNetwork.IsMasterClient && isReady[0] && isReady[1])
+        {
+            StartButton.interactable = true;
+        }
+    }
+
+    public void StartGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Main");
+        }
+    }
 }

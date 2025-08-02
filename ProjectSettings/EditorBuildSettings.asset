@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: e69b89785899ce5448a0b4b40bc33183
+  - enabled: 1
+    path: Assets/Scenes/dlwogus.unity
+    guid: 962ba486c7f00a64ca3c3980078fc859
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

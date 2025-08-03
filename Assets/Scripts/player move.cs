@@ -12,10 +12,11 @@ public class playermove : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine) return;
-
-        float moveX = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(moveX, 0, 0);
-        transform.Translate(move * speed * Time.deltaTime);
+        if (photonView.IsMine)
+        {
+            float moveX = Input.GetAxis("Horizontal");
+            Vector3 move = new Vector3(moveX, 0, 0);
+            transform.Translate(move * speed * Time.deltaTime);
+        }
     }
 }

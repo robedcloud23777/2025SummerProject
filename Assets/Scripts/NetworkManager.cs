@@ -139,7 +139,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message) { RoomInput.text = ""; CreateRoom(); }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         foreach (KeyValuePair<int, Photon.Realtime.Player> entry in PhotonNetwork.CurrentRoom.Players)
         {
@@ -150,7 +150,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player player)
     {
         // 방 정보 갱신, 플레이어가 나갔을 때 처리 (필요 시)
     }
@@ -180,7 +180,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("Main");
+            PhotonNetwork.LoadLevel("Hyun");
         }
     }
 }

@@ -17,7 +17,7 @@ public class PhotonTestManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방 참가 완료: " + PhotonNetwork.CurrentRoom.Name);
-        PhotonNetwork.Instantiate("PlayerTest", Vector3.zero, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("PlayerTest", new Vector3(0,0,0), Quaternion.identity, 0);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

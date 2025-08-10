@@ -10,13 +10,6 @@ public class PlayerHealth : MonoBehaviourPun, IDamageable
     public void TakeDamage(float damage)
     {
         hp -= damage;
-        Debug.Log($"[HP] {name} -{damage} ¡æ {hp}");
+        Debug.Log($"[HP] {name} -{damage} ï¿½ï¿½ {hp}");
     }
 }
-
-
-
-
-
-
-

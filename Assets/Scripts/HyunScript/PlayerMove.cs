@@ -7,7 +7,8 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     public float jumpForce = 10f;
     public Rigidbody2D rb;
     private IPunObservable _punObservableImplementation;
-
+    public Transform groundCheck;
+    private bool isGrounded;
     private void Update()
     {
         if(!photonView.IsMine)
@@ -36,8 +37,13 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void JumpRPC()
     {
+        
+        if (!Physics2D.OverlapCircle(groundCheck.position, 0.1f, 1 << LayerMask.NameToLayer("Ground")))
+            return;
+        
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

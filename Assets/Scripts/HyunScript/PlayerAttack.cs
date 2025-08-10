@@ -3,46 +3,68 @@ using Photon.Pun;
 
 public class PlayerAttack : MonoBehaviourPun
 {
-    public SpriteRenderer indicator; 
-    public LayerMask targetLayer;    
-    public float range = 1f;           
-    public int damage = 10;            
+ 
+    public SpriteRenderer indicator;   
+    public BoxCollider2D hitbox;       
+
+    public float range = 1.5f;         
+    public float height = 1.0f;       
+    public Vector2 offset = new Vector2(0.75f, 0f); 
+
+    
+    public int damage = 10;
+    public float showTime = 0.2f;
+
+    void Awake()
+    {
+        
+        if (indicator) indicator.enabled = false;
+        if (hitbox) hitbox.enabled = false;
+
+        
+        Physics2D.queriesHitTriggers = true;
+    }
 
     void Update()
     {
-        if (photonView.IsMine && Input.GetKeyDown(KeyCode.Z))
-            Attack();
-    }
+        if (!photonView.IsMine) return;
 
-    void Attack()
-    {
-        Debug.Log("데미지 시작");
-        indicator.transform.localScale = new Vector3(range, 1, 1);
-        indicator.enabled = true;
-        Invoke(nameof(HideIndicator), 0.2f);
-
-        
-        Vector2 center = (Vector2)transform.position + Vector2.right * (range / 2f);
-        Vector2 size = new Vector2(range, 1f);
-        var hits = Physics2D.OverlapBoxAll(center, size, 0, targetLayer);
-
-        
-        foreach (var col in hits)
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            var pv = col.GetComponent<PhotonView>();
-            if (pv != null)
-                pv.RPC(nameof(RPC_TakeDamage), pv.Owner, damage);
+            
+            photonView.RPC(nameof(RPC_Attack), RpcTarget.All);
         }
     }
 
-    void HideIndicator() => indicator.enabled = false;
-
     [PunRPC]
-    void RPC_TakeDamage(int dmg)
+    void RPC_Attack()
     {
-        Debug.Log($"[RPC] Received {dmg} on {gameObject.name}");
-        GetComponent<IDamageable>()?.TakeDamage(dmg);
+        if (indicator == null || hitbox == null) return;
+
+       
+        float dir = Mathf.Sign(transform.localScale.x); 
+
+        
+        Transform t = indicator.transform; 
+        t.position = transform.position + new Vector3(dir * offset.x, offset.y, 0f);
+
+        indicator.transform.localScale = new Vector3(range, height, 1f);
+        hitbox.size = new Vector2(range, height);
+        hitbox.offset = Vector2.zero;
+
+        indicator.enabled = true;
+        hitbox.enabled = true;
+
+        CancelInvoke(nameof(Hide));
+        Invoke(nameof(Hide), showTime);
     }
 
+    void Hide()
+    {
+        if (indicator) indicator.enabled = false;
+        if (hitbox) hitbox.enabled = false;
+    }
 }
+
+
 

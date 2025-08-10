@@ -1,25 +1,47 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviourPun
+public class PlayerMove : MonoBehaviourPun, IPunObservable
 {
     public float moveSpeed = 5f;
+    public float jumpForce = 10f;
     public Rigidbody2D rb;
+    private IPunObservable _punObservableImplementation;
+
     private void Update()
     {
         if(!photonView.IsMine)
             return;
         Move();
+        if(Input.GetKeyDown(KeyCode.Space))
+            Jump();
     }
 
     private void Move()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         
-        Vector3 movement = new Vector3(horizontal, 0,0);
+         
         
-        rb.linearVelocity = movement * moveSpeed;
+        rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
         
+        
+    }
+
+    public void Jump()
+    {
+        photonView.RPC("JumpRPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void JumpRPC()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
         
     }
 }

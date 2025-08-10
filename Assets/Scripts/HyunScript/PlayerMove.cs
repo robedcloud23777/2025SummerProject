@@ -6,9 +6,13 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public Rigidbody2D rb;
-    private IPunObservable _punObservableImplementation;
+    
     public Transform groundCheck;
     private bool isGrounded;
+    private IPunObservable _punObservableImplementation;
+    
+    private Vector2 direction;
+    private Vector2 opponentDirection;
     private void Update()
     {
         if(!photonView.IsMine)
@@ -23,7 +27,7 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         float horizontal = Input.GetAxisRaw("Horizontal");
         
          
-        
+        direction = new Vector2(horizontal,0);
         rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
         
         
@@ -48,6 +52,13 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
+        if (stream.IsWriting)
+        {
+            stream.SendNext(direction);
+        }
+        else
+        {
+            opponentDirection = (Vector2)stream.ReceiveNext();
+        }
     }
 }

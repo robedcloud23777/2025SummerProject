@@ -44,6 +44,7 @@ MonoBehaviour:
   - SetReadyState
   - RPC_SetOtherPlayer
   - RPC_TakeDamage
+  - RPC_PlaySFX
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -50,8 +50,12 @@ MonoBehaviour:
   - Update
   - RPC_Attack
   - CatchDamage
+<<<<<<< Updated upstream
   - Jump
   - JumpRPC
+=======
+  - Next
+>>>>>>> Stashed changes
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

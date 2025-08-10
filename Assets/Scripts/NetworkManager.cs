@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Photon.Pun.Demo.PunBasics;
+using System;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -115,7 +116,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #endregion
 
     #region 방
-    public void CreateRoom() => PhotonNetwork.CreateRoom(RoomInput.text == "" ? "Room" + Random.Range(0, 100) : RoomInput.text, new RoomOptions { MaxPlayers = 2 });
+    public void CreateRoom() => PhotonNetwork.CreateRoom(RoomInput.text == "" ? "Room" + UnityEngine.Random.Range(0, 100) : RoomInput.text, new RoomOptions { MaxPlayers = 2 });
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
 
@@ -180,7 +181,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("Hyun");
+            photonView.RPC("Next", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void Next()
+    {
+        PhotonNetwork.LoadLevel("Hyun");
     }
 }

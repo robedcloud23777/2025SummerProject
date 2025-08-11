@@ -3,9 +3,10 @@ using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviourPunCallbacks
+public class Player : MonoBehaviourPunCallbacks, IHitable
 {
     
+    public float health = 100f;
     public PlayerKickAttack kickAttack;
     public PlayerAttack punchAttack;
     
@@ -22,6 +23,11 @@ public class Player : MonoBehaviourPunCallbacks
             kickAttack.Attack();
             
         }
+    }
+
+    public void Hit(float damage)
+    {
+        health -= damage;
     }
 
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PhotonTestManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
     }
+    
 
     public override void OnConnectedToMaster()
     {
@@ -17,7 +19,23 @@ public class PhotonTestManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방 참가 완료: " + PhotonNetwork.CurrentRoom.Name);
-        PhotonNetwork.Instantiate("PlayerTest", new Vector3(0,0,0), Quaternion.identity, 0);
+    
+        Vector3 spawnPos;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            spawnPos = new Vector3(-5, 0, 0);
+            GameObject tmp =PhotonNetwork.Instantiate("PlayerTest", spawnPos, Quaternion.identity, 0);
+            
+        }
+        else
+        {
+            spawnPos = new Vector3(5, 0, 0);
+            GameObject tmp =PhotonNetwork.Instantiate("PlayerTest", spawnPos, Quaternion.identity, 0);
+            tmp.transform.localScale = new Vector3(-1, 1, 1);
+
+        }
+        
+
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

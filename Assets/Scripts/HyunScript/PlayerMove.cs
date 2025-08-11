@@ -10,9 +10,6 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     public Transform groundCheck;
     private bool isGrounded;
     private IPunObservable _punObservableImplementation;
-    
-    private Vector2 direction;
-    private Vector2 opponentDirection;
 
     public Animator playerAnim;
 
@@ -25,10 +22,11 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     private void Update()
     {
         if(!photonView.IsMine) return;
-        //playerAnim.SetMove(opponentDirection.x, false);
+        
         Move();
         if(Input.GetKeyDown(KeyCode.Space))
             Jump();
+        
     }
 
     private void Move()
@@ -36,10 +34,9 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         float horizontal = Input.GetAxisRaw("Horizontal");
         
          
-        direction = new Vector2(horizontal,0);
         rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
 
-        playerAnim.SetFloat("MoveX", horizontal);
+        playerAnim.SetFloat("MoveX", horizontal*transform.localScale.x);
         playerAnim.SetBool("IsMoving",horizontal!=0);
         playerAnim.SetBool("IsGround", isGrounded);
        
@@ -65,13 +62,6 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(direction);
-        }
-        else
-        {
-            opponentDirection = (Vector2)stream.ReceiveNext();
-        }
+        
     }
 }

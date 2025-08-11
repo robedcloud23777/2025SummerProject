@@ -1,26 +1,24 @@
 using System.Collections;
-using UnityEngine;
 using Photon.Pun;
-using UnityEditor;
+using UnityEngine;
 
-public class PlayerAttack : MonoBehaviourPun
+public class PlayerKickAttack : MonoBehaviourPunCallbacks
 {
     public GameObject hitObject;
-    public float cooldown = 0.3f; 
+    public float cooldown = 0.5f; 
 
     private bool isCooldown = false;
     public void Attack()
     {
         if (isCooldown) return;
-        photonView.RPC("AttackRPC", RpcTarget.All);
+        photonView.RPC("AttackRPC_", RpcTarget.All);
         StartCoroutine(CooldownRoutine());
     }
-
+    
     [PunRPC]
-    private void AttackRPC()
+    private void AttackRPC_()
     {
         StartCoroutine(AttackRoutine());
-        print("rhdrur");
     }
 
     protected IEnumerator AttackRoutine()
@@ -41,9 +39,4 @@ public class PlayerAttack : MonoBehaviourPun
         yield return new WaitForSeconds(cooldown);
         isCooldown = false;
     }
-
 }
-
-
-
-

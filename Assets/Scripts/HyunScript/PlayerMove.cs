@@ -14,18 +14,18 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     private Vector2 direction;
     private Vector2 opponentDirection;
 
-    private PlayerAnimation playerAnim;
+    public Animator playerAnim;
 
     private void Start()
     {
-        playerAnim = GetComponent<PlayerAnimation>();
+        //playerAnim = GetComponent<PlayerAnimation>();
     }
 
 
     private void Update()
     {
         if(!photonView.IsMine) return;
-        playerAnim.SetMove(opponentDirection.x, false);
+        //playerAnim.SetMove(opponentDirection.x, false);
         Move();
         if(Input.GetKeyDown(KeyCode.Space))
             Jump();
@@ -39,7 +39,10 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         direction = new Vector2(horizontal,0);
         rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
 
-        playerAnim.SetMove(horizontal, isGrounded);
+        playerAnim.SetFloat("MoveX", horizontal);
+        playerAnim.SetBool("IsMoving",horizontal!=0);
+        playerAnim.SetBool("IsGround", isGrounded);
+       
     }
 
     public void Jump()
@@ -57,7 +60,7 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        playerAnim.TriggerJump();
+        playerAnim.SetTrigger("Jump");
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

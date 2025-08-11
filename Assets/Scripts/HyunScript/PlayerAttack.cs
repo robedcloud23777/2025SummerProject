@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
-using UnityEditor;
 
 public class PlayerAttack : MonoBehaviourPun
 {
@@ -9,6 +8,8 @@ public class PlayerAttack : MonoBehaviourPun
     public float cooldown = 0.3f; 
 
     private bool isCooldown = false;
+    private Coroutine attackCoroutine;
+
     public void Attack()
     {
         if (isCooldown) return;
@@ -19,31 +20,25 @@ public class PlayerAttack : MonoBehaviourPun
     [PunRPC]
     private void AttackRPC()
     {
-        StartCoroutine(AttackRoutine());
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
+
+        attackCoroutine = StartCoroutine(AttackRoutine());
         print("rhdrur");
     }
 
     protected IEnumerator AttackRoutine()
     {
-        //애니메이션 넣음녀 됨
-        float timer = 0f;
-        while (timer < 0.5f)
-        {
-            hitObject.SetActive(true);
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        hitObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
         hitObject.SetActive(false);
+        attackCoroutine = null; 
     }
+
     private IEnumerator CooldownRoutine()
     {
         isCooldown = true;
         yield return new WaitForSeconds(cooldown);
         isCooldown = false;
     }
-
 }
-
-
-
-

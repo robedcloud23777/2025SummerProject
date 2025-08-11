@@ -13,6 +13,8 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
 
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
         if (Input.GetKeyDown(KeyCode.J))
         {
             punchAttack.Attack(); 

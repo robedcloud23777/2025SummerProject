@@ -9,12 +9,16 @@ public class Health : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        hp = maxhp;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        HpSlider.value = (float)maxhp / (float)hp;
+        if (Input.GetMouseButtonDown(0))
+        {
+            hp--;
+        }
+        HpSlider.value = (float)hp / maxhp;
     }
+
 }

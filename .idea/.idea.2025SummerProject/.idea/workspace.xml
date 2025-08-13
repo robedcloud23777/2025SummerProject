@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="39a8ff27-381f-4176-9282-c7849274fd7d" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2025SummerProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2025SummerProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PlayerTest.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PlayerTest.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hyun.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hyun.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HyunScript/HitObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HyunScript/HitObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HyunScript/PhotonTestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HyunScript/PhotonTestManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/HyunScript/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HyunScript/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/HyunScript/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HyunScript/PlayerMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

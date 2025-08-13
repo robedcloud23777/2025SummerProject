@@ -13,6 +13,8 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
 
     public Animator playerAnim;
 
+    [HideInInspector] public bool guarding;
+
     private void Start()
     {
         //playerAnim = GetComponent<PlayerAnimation>();
@@ -22,7 +24,7 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     private void Update()
     {
         if(!photonView.IsMine) return;
-        
+        print(guarding);
         Move();
         if(Input.GetKeyDown(KeyCode.Space))
             Jump();
@@ -36,12 +38,21 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
          
         rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
 
+        
+        
+        float facingSign = Mathf.Sign(transform.localScale.x);
+        guarding = horizontal != 0 && Mathf.Sign(horizontal) != facingSign;
+        
+        
+        
         playerAnim.SetFloat("MoveX", horizontal*transform.localScale.x);
         playerAnim.SetBool("IsMoving",horizontal!=0);
         playerAnim.SetBool("IsGround", isGrounded);
-       
+        
     }
 
+   
+    
     public void Jump()
     {
         photonView.RPC("JumpRPC", RpcTarget.All);

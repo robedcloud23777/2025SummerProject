@@ -11,24 +11,23 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     private bool isGrounded;
     private IPunObservable _punObservableImplementation;
 
-    public Animator playerAnim;
+    private PlayerAnimation playerAnim;
 
     [HideInInspector] public bool guarding;
 
     private void Start()
     {
-        //playerAnim = GetComponent<PlayerAnimation>();
+        playerAnim = GetComponent<PlayerAnimation>();
     }
 
 
     private void Update()
     {
         if(!photonView.IsMine) return;
-        print(guarding);
+        CheckGround();
+        //print(guarding);
         Move();
-        if(Input.GetKeyDown(KeyCode.Space))
-            Jump();
-        
+        if (Input.GetKeyDown(KeyCode.Space)) Jump();
     }
 
     private void Move()
@@ -42,13 +41,8 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         
         float facingSign = Mathf.Sign(transform.localScale.x);
         guarding = horizontal != 0 && Mathf.Sign(horizontal) != facingSign;
-        
-        
-        
-        playerAnim.SetFloat("MoveX", horizontal*transform.localScale.x);
-        playerAnim.SetBool("IsMoving",horizontal!=0);
-        playerAnim.SetBool("IsGround", isGrounded);
-        
+
+        playerAnim.SetMove((int)horizontal, isGrounded, Mathf.CeilToInt(rb.linearVelocity.y));
     }
 
    
@@ -61,18 +55,30 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void JumpRPC()
     {
-        
-        if (!Physics2D.OverlapCircle(groundCheck.position, 0.1f, 1 << LayerMask.NameToLayer("Ground")))
-            return;
-        
+        if (!isGrounded) return;
+        playerAnim.TriggerJump();
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
-        playerAnim.SetTrigger("Jump");
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
+    }
+
+    private void CheckGround()
+    {
+        // Ray 길이 (groundCheck 위치에서 아래로 쏘는 길이)
+        float rayLength = 0.2f;
+
+        // Raycast를 아래 방향으로 발사
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Ground"));
+
+        // 맞은 오브젝트가 있으면 땅에 닿아 있음
+        isGrounded = hit.collider != null;
+
+        // 디버그 용: Scene 뷰에 Ray 표시
+        Color rayColor = isGrounded ? Color.green : Color.red;
+        Debug.DrawRay(groundCheck.position, Vector2.down * rayLength, rayColor);
     }
 }

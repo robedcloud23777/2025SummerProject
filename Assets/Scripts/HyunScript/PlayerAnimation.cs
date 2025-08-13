@@ -4,11 +4,11 @@ public class PlayerAnimation : MonoBehaviour
 {
     public Animator animator;
 
-    public void SetMove(float horizontal, bool isGround)
+    public void SetMove(int horizontal, bool isGround, int verticalVelocity)
     {
-        animator.SetFloat("MoveX", horizontal);
-        animator.SetBool("IsMoving", horizontal != 0);
+        animator.SetInteger("MoveX", horizontal);
         animator.SetBool("IsGround", isGround);
+        animator.SetInteger("VerticalVelocity", verticalVelocity);
     }
 
     public void TriggerJump()

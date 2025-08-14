@@ -14,11 +14,11 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            hp--;
-        }
-        HpSlider.value = (float)hp / maxhp;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    hp--;
+        //}
+        //HpSlider.value = (float)hp / maxhp;
     }
 
 }

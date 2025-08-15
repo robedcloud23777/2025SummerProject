@@ -38,11 +38,10 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
 
         
-        
         float facingSign = Mathf.Sign(transform.localScale.x);
         guarding = horizontal != 0 && Mathf.Sign(horizontal) != facingSign;
 
-        playerAnim.SetMove((int)horizontal, isGrounded, rb.linearVelocity.y);
+        playerAnim.SetMove(horizontal, isGrounded, Mathf.CeilToInt(rb.linearVelocity.y));
     }
 
    

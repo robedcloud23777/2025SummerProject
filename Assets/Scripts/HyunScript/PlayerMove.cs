@@ -41,6 +41,7 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         float facingSign = Mathf.Sign(transform.localScale.x);
         guarding = horizontal != 0 && Mathf.Sign(horizontal) != facingSign;
 
+        if (!PhotonNetwork.IsMasterClient) horizontal *= -1;
         playerAnim.SetMove(horizontal, isGrounded, Mathf.CeilToInt(rb.linearVelocity.y));
     }
 

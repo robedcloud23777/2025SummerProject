@@ -11,8 +11,11 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time - lastAttackTime > comboResetTime)
+        if (currentCombo > 0 && Time.time - lastAttackTime > comboResetTime)
+        {
             currentCombo = 0;
+            animator.SetInteger("ComboIndex", 0); // 애니메이터 값도 같이 초기화
+        }
     }
 
     public void SetMove(int horizontal, bool isGround, int verticalVelocity)

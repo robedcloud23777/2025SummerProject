@@ -10,6 +10,7 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     public PlayerKickAttack kickAttack;
     public PlayerAttack punchAttack;
     private PlayerMove playerMove;
+    private PlayerAnimation playerAnim;
 
     public float Health
     {
@@ -25,6 +26,7 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     private void Start()
     {
         playerMove = GetComponent<PlayerMove>();
+        playerAnim = GetComponent<PlayerAnimation>();
     }
 
     void Update()
@@ -34,12 +36,13 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
         if (Input.GetKeyDown(KeyCode.J))
         {
             punchAttack.Attack(); 
+            playerAnim.TriggerAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
             kickAttack.Attack();
-            
+            playerAnim.TriggerKick();
         }
     }
 
@@ -47,6 +50,7 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     {
         if (playerMove.guarding == true) return;
         health -= damage;
+        playerAnim.TriggerHit();
     }
 
 }

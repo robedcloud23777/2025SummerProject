@@ -152,7 +152,7 @@ MonoBehaviour:
   jumpForce: 15
   rb: {fileID: -2297636163582478352}
   groundCheck: {fileID: 2100158373411928659}
-  playerAnim: {fileID: 915161183227831117}
+  guarding: 0
 --- !u!114 &104998964010358743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7447d73b4c748d88755ad50b11b739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   kickAttack: {fileID: 5896007666285361292}
   punchAttack: {fileID: 1055732443267278118}
 --- !u!114 &1055732443267278118
@@ -821,11 +820,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6977338393697221332}
   m_SourcePrefab: {fileID: 100100000, guid: 273af7ea2168d73468322867a38d4f1f, type: 3}
---- !u!95 &915161183227831117 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 273af7ea2168d73468322867a38d4f1f, type: 3}
-  m_PrefabInstance: {fileID: 6762677755672125148}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5843616535755154317 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 273af7ea2168d73468322867a38d4f1f, type: 3}

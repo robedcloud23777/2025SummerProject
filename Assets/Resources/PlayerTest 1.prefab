@@ -895,7 +895,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Die
   - Type: 3
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: VerticalVelocity
   - Type: 3
     SynchronizeType: 1

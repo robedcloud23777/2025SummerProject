@@ -30,7 +30,7 @@ public class PhotonTestManager : MonoBehaviourPunCallbacks
         else
         {
             spawnPos = new Vector3(5, 0, 0);
-            GameObject tmp =PhotonNetwork.Instantiate("PlayerTest", spawnPos, Quaternion.identity, 0);
+            GameObject tmp =PhotonNetwork.Instantiate("PlayerTest 1", spawnPos, Quaternion.identity, 0);
             tmp.transform.localScale = new Vector3(-1, 1, 1);
 
         }

@@ -30,4 +30,13 @@ public class GameManager : MonoBehaviour
             animator.SetTrigger(parameterName);
         }
     }
+    public void TutoOn()
+        {
+            animator.SetBool("Tuto", true);
+        }
+    
+        public void TutoOff()
+        {
+            animator.SetBool("Tuto", false);
+        }
 }

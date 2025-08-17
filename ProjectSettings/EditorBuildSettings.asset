@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Start.unity
-    guid: 16f7ad86131fe024aae2263d161d541e
+    path: Assets/Scenes/Start 1.unity
+    guid: e057f8d4f809be244bc33982de60e2f7
   - enabled: 1
     path: Assets/Scenes/Hyun.unity
     guid: da6ceff95807e41afa90f1040968e4c3

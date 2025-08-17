@@ -221,7 +221,6 @@ MonoBehaviour:
   health: 100
   kickAttack: {fileID: 8796349845153986869}
   punchAttack: {fileID: 8999585845043890138}
-  rb: {fileID: 0}
   punchInputCooldown: 0.4
   kickInputCooldown: 0.5
 --- !u!114 &8999585845043890138

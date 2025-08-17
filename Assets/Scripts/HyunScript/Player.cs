@@ -11,7 +11,6 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     public PlayerAttack punchAttack;
     private PlayerMove playerMove;
     private PlayerAnimation playerAnim;
-    public Rigidbody2D rb;
 
     // 입력 쿨다운 설정 (원하면 값 조정)
     public float punchInputCooldown = 0.3f;
@@ -34,7 +33,6 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     {
         playerMove = GetComponent<PlayerMove>();
         playerAnim = GetComponent<PlayerAnimation>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -81,7 +79,8 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     {
         if (playerMove.guarding == true) return;
         health -= damage;
-        rb.AddForce(Vector2.up , ForceMode2D.Impulse);
         playerAnim.TriggerHit();
+        playerMove.Push(new Vector2(-transform.right.x*10,3) );//이거 뭔가 이상하게 작동함.
+
     }
 }

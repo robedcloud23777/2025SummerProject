@@ -190,4 +190,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Hyun");
     }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Hyun")
+        {
+            Vector3 spawnPos;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                spawnPos = new Vector3(-5, 0, 0);
+                GameObject tmp = PhotonNetwork.Instantiate("PlayerTest 1", spawnPos, Quaternion.identity, 0);
+
+            }
+            else
+            {
+                spawnPos = new Vector3(5, 0, 0);
+                GameObject tmp = PhotonNetwork.Instantiate("PlayerTest 1", spawnPos, Quaternion.Euler(0, 180, 0), 0);
+
+            }
+        }
+    }
 }

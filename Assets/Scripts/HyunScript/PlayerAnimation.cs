@@ -6,15 +6,15 @@ public class PlayerAnimation : MonoBehaviour
 
     [SerializeField] private int currentCombo = 0;
     private float lastAttackTime;
-    public float comboResetTime = 1f;
-    private int maxCombo = 5;
+    [SerializeField] private float comboResetTime = 0.4f; // 콤보 유지 시간
+    [SerializeField] private int maxCombo = 5;
 
     private void Update()
     {
+        // 공격 후 콤보 시간 초과 시 리셋
         if (currentCombo > 0 && Time.time - lastAttackTime > comboResetTime)
         {
-            currentCombo = 0;
-            animator.SetInteger("ComboIndex", 0); // 애니메이터 값도 같이 초기화
+            ResetCombo();
         }
     }
 
@@ -33,11 +33,15 @@ public class PlayerAnimation : MonoBehaviour
 
     public void TriggerAttack()
     {
+        // 콤보 증가
         currentCombo++;
         if (currentCombo > maxCombo) currentCombo = 1;
+
+        // 애니메이터 파라미터 설정
         animator.SetInteger("ComboIndex", currentCombo);
         animator.SetTrigger("Attack");
 
+        // 마지막 공격 시간 갱신
         lastAttackTime = Time.time;
     }
 
@@ -50,13 +54,6 @@ public class PlayerAnimation : MonoBehaviour
     public bool IsInState(string stateName)
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-    }
-
-    // 애니메이션 이벤트에서 호출 가능
-    public void ResetCombo()
-    {
-        currentCombo = 0;
-        animator.SetInteger("ComboIndex", 0);
     }
 
     public void TriggerHit()
@@ -75,5 +72,22 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (!IsInState("Die"))
             animator.SetTrigger("Die");
+    }
+
+    // 🔹 애니메이션 이벤트에서 호출할 수 있도록 public 처리
+    public void ResetCombo()
+    {
+        currentCombo = 0;
+        animator.SetInteger("ComboIndex", 0);
+    }
+
+    // 🔹 공격 애니메이션이 끝날 때 자동으로 Idle/Move로 돌아가도록 트리거
+    //    → Attack 애니메이션 마지막 프레임에 Animation Event 걸어서 호출
+    public void OnAttackAnimationEnd()
+    {
+        ResetCombo();
+        animator.ResetTrigger("Attack");
+        // 필요하다면 Idle로 강제 전환 트리거 추가 가능
+        animator.SetTrigger("ToIdle");
     }
 }

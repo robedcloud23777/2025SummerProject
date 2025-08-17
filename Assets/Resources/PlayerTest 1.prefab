@@ -269,7 +269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3467636473582462682}
   currentCombo: 0
-  comboResetTime: 0.5
+  comboResetTime: 0.6
+  maxCombo: 5
 --- !u!1 &7017305050286665445
 GameObject:
   m_ObjectHideFlags: 0

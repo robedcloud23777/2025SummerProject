@@ -35,14 +35,36 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         float horizontal = Input.GetAxisRaw("Horizontal");
         
          
-        rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); ;
-
+        rb.linearVelocity = new Vector2(horizontal *moveSpeed, rb.linearVelocity.y); 
         
+        RaycastHit2D tmp = Physics2D.Raycast(transform.position + new Vector3(-transform.right.x,0,0), -transform.right, Mathf.Infinity, 1<<LayerMask.NameToLayer("Player"));
+        Debug.DrawRay(transform.position + new Vector3(-transform.right.x,0,0), -transform.right, Color.red);
+        if(tmp.collider != null)
+        {
+                  Turn();
+                  tmp.collider.GetComponent<PlayerMove>().Turn();
+            
+        }
         float facingSign = Mathf.Sign(transform.localScale.x);
         guarding = horizontal != 0 && Mathf.Sign(horizontal) != facingSign;
 
         if (!PhotonNetwork.IsMasterClient) horizontal *= -1;
         playerAnim.SetMove(horizontal, isGrounded, Mathf.CeilToInt(rb.linearVelocity.y));
+    }
+
+    public void Turn()
+    {
+        photonView.RPC("Turning", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void Turning()
+    {
+        transform.eulerAngles = new Vector3(
+            transform.eulerAngles.x,
+            transform.eulerAngles.y + 180f,
+            transform.eulerAngles.z
+        );  
     }
 
    

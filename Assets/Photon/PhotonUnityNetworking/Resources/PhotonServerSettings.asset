@@ -55,6 +55,7 @@ MonoBehaviour:
   - AttackRPC_
   - JumpRPC
   - Next
+  - Turning
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

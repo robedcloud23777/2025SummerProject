@@ -8,6 +8,13 @@ public class PlayerKickAttack : MonoBehaviourPunCallbacks
     public float cooldown = 0.5f; 
 
     private bool isCooldown = false;
+    
+    public PlayerMove playerMove;
+    public Rigidbody2D rb;
+    private void Awake()
+    {
+        playerMove = GetComponent<PlayerMove>();
+    }
     public void Attack()
     {
         if (isCooldown) return;
@@ -25,12 +32,15 @@ public class PlayerKickAttack : MonoBehaviourPunCallbacks
     {
         //애니메이션 넣음녀 됨
         float timer = 0f;
+        rb.linearVelocity = Vector2.zero;
         while (timer < 0.5f)
         {
+            playerMove.enabled = false;
             hitObject.SetActive(true);
             timer += Time.deltaTime;
             yield return null;
         }
+        playerMove.enabled = true;
         hitObject.SetActive(false);
     }
     private IEnumerator CooldownRoutine()

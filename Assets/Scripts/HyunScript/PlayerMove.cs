@@ -52,6 +52,17 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         playerAnim.SetMove(horizontal, isGrounded, Mathf.CeilToInt(rb.linearVelocity.y));
     }
 
+    [PunRPC]
+    private void push(Vector2 direction, float force =1)
+    {
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
+    public void Push(Vector2 direction, float force = 1)
+    {
+        photonView.RPC("push", RpcTarget.All, direction, force);
+    }
+
     public void Turn()
     {
         photonView.RPC("Turning", RpcTarget.AllBuffered);

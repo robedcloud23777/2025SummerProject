@@ -9,7 +9,8 @@ public class PlayerAttack : MonoBehaviourPun
 
     private bool isCooldown = false;
     private Coroutine attackCoroutine;
-
+    public Rigidbody2D rb;
+    public PlayerMove playerMove;
     public void Attack()
     {
         if (isCooldown) return;
@@ -29,10 +30,17 @@ public class PlayerAttack : MonoBehaviourPun
 
     protected IEnumerator AttackRoutine()
     {
-        hitObject.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
-        hitObject.SetActive(false);
-        attackCoroutine = null; 
+        float timer = 0f;
+        rb.linearVelocity = new Vector2(0,rb.linearVelocity.y);
+        while (timer < 0.3f)
+        {
+            playerMove.enabled = false;
+            hitObject.SetActive(true);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        playerMove.enabled = true;
+        hitObject.SetActive(false); 
     }
 
     private IEnumerator CooldownRoutine()

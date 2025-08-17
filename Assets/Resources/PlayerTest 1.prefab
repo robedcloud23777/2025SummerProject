@@ -48,7 +48,6 @@ GameObject:
   - component: {fileID: 3438438567647156323}
   - component: {fileID: 8999585845043890138}
   - component: {fileID: 8796349845153986869}
-  - component: {fileID: 2005679962949261499}
   - component: {fileID: 2267945916706684895}
   m_Layer: 7
   m_Name: PlayerTest 1
@@ -113,7 +112,7 @@ MonoBehaviour:
   observableSearch: 0
   ObservedComponents:
   - {fileID: 8974506642293061891}
-  - {fileID: 2005679962949261499}
+  - {fileID: 0}
   - {fileID: 6378760976404681559}
   sceneViewId: 0
   InstantiationId: 0
@@ -152,7 +151,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.04647538, y: 1.2683196}
+  m_Offset: {x: 0.073217124, y: 1.2683196}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -162,7 +161,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8217818, y: 3.282082}
+  m_Size: {x: 1.222908, y: 3.282082}
   m_EdgeRadius: 0
 --- !u!50 &7694578400084563635
 Rigidbody2D:
@@ -219,8 +218,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7447d73b4c748d88755ad50b11b739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   kickAttack: {fileID: 8796349845153986869}
   punchAttack: {fileID: 8999585845043890138}
+  rb: {fileID: 0}
+  punchInputCooldown: 0.4
+  kickInputCooldown: 0.5
 --- !u!114 &8999585845043890138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +238,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitObject: {fileID: 7163905091734546688}
   cooldown: 0.3
+  rb: {fileID: 7694578400084563635}
+  playerMove: {fileID: 1841202915769879157}
 --- !u!114 &8796349845153986869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,22 +254,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitObject: {fileID: 7017305050286665445}
   cooldown: 0.5
---- !u!114 &2005679962949261499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6446806750468974815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 0
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  playerMove: {fileID: 0}
+  rb: {fileID: 7694578400084563635}
 --- !u!114 &2267945916706684895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +338,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.97277075, y: -0.54547906}
+  m_Offset: {x: 1.3128045, y: -0.16965228}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -357,7 +348,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.0909132, y: 2.4182444}
+  m_Size: {x: 1.7709804, y: 1.6665908}
   m_EdgeRadius: 0
 --- !u!114 &7288472924820834422
 MonoBehaviour:

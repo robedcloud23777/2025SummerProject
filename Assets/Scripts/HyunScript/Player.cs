@@ -1,25 +1,32 @@
 using System;
+using System.Collections;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviourPunCallbacks, IHitable
 {
-    
-    private float health = 100f;
+    public float health = 100f;
     public PlayerKickAttack kickAttack;
     public PlayerAttack punchAttack;
     private PlayerMove playerMove;
     private PlayerAnimation playerAnim;
+    public Rigidbody2D rb;
+
+    // 입력 쿨다운 설정 (원하면 값 조정)
+    public float punchInputCooldown = 0.3f;
+    public float kickInputCooldown = 0.5f;
+
+    private bool canPunch = true;
+    private bool canKick = true;
 
     public float Health
     {
         get => health;
-
         set
         {
             health = value;
-            // 체력 닳았을떄 이펙트 추가.
+            // 체력 닳았을때 이펙트 추가.
         }
     }
 
@@ -27,33 +34,54 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     {
         playerMove = GetComponent<PlayerMove>();
         playerAnim = GetComponent<PlayerAnimation>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         if (!photonView.IsMine)
             return;
+
         if (Input.GetKeyDown(KeyCode.J))
         {
-            punchAttack.Attack(); 
-            playerAnim.TriggerAttack();
+            if (canPunch)
+            {
+                canPunch = false;
+                punchAttack.Attack();
+                playerAnim.TriggerAttack();
+                StartCoroutine(PunchCooldownRoutine());
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            kickAttack.Attack();
-            playerAnim.TriggerKick();
+            if (canKick)
+            {
+                canKick = false;
+                kickAttack.Attack();
+                playerAnim.TriggerKick();
+                StartCoroutine(KickCooldownRoutine());
+            }
         }
+    }
+
+    private IEnumerator PunchCooldownRoutine()
+    {
+        yield return new WaitForSeconds(punchInputCooldown);
+        canPunch = true;
+    }
+
+    private IEnumerator KickCooldownRoutine()
+    {
+        yield return new WaitForSeconds(kickInputCooldown);
+        canKick = true;
     }
 
     public void Hit(float damage)
     {
         if (playerMove.guarding == true) return;
         health -= damage;
+        rb.AddForce(Vector2.up , ForceMode2D.Impulse);
         playerAnim.TriggerHit();
     }
-
 }
-
-
-

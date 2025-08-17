@@ -141,7 +141,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.000000014901161
   m_TransitionOffset: 0
   m_ExitTime: 0.625
   m_HasExitTime: 0
@@ -674,7 +674,7 @@ AnimatorState:
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
-  m_TimeParameter: 
+  m_TimeParameter: MoveX
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -871,7 +871,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6823042613375816861}
-    m_Position: {x: 1080, y: 240, z: 0}
+    m_Position: {x: 1040, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2451562566000205790}
     m_Position: {x: 1350, y: -90, z: 0}
@@ -883,7 +883,7 @@ AnimatorStateMachine:
     m_Position: {x: 1350, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -139163851730826912}
-    m_Position: {x: 1350, y: 130, z: 0}
+    m_Position: {x: 1350, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -875634898115605529}
     m_Position: {x: 1350, y: 60, z: 0}
@@ -892,7 +892,7 @@ AnimatorStateMachine:
     m_Position: {x: 740, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7316766443257639976}
-    m_Position: {x: 630, y: 240, z: 0}
+    m_Position: {x: 620, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9063496313095229623}
     m_Position: {x: 620, y: -50, z: 0}
@@ -901,7 +901,7 @@ AnimatorStateMachine:
     m_Position: {x: 610, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6724795951824438598}
-    m_Position: {x: 860, y: 240, z: 0}
+    m_Position: {x: 830, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3016584759715640470}
     m_Position: {x: 830, y: -250, z: 0}
@@ -910,7 +910,7 @@ AnimatorStateMachine:
     m_Position: {x: 1010, y: -190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8683891629238188760}
-    m_Position: {x: 400, y: 240, z: 0}
+    m_Position: {x: 410, y: 190, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -4484181143825790817}

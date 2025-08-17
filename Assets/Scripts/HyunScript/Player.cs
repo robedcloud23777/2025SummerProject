@@ -3,6 +3,7 @@ using System.Collections;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviourPunCallbacks, IHitable
 {
@@ -11,6 +12,7 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     public PlayerAttack punchAttack;
     private PlayerMove playerMove;
     private PlayerAnimation playerAnim;
+    private Slider HpSlider;
 
     // 입력 쿨다운 설정 (원하면 값 조정)
     public float punchInputCooldown = 0.3f;
@@ -60,6 +62,11 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
                 playerAnim.TriggerKick();
                 StartCoroutine(KickCooldownRoutine());
             }
+        }
+
+        if(health < 0f)
+        {
+            playerAnim.TriggerDie();
         }
     }
 

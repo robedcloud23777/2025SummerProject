@@ -7,7 +7,19 @@ public class PhotonTestManager : MonoBehaviourPunCallbacks
 {
     private void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        Vector3 spawnPos;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            spawnPos = new Vector3(-5, 0, 0);
+            GameObject tmp = PhotonNetwork.Instantiate("Player", spawnPos, Quaternion.identity, 0);
+
+        }
+        else
+        {
+            spawnPos = new Vector3(5, 0, 0);
+            GameObject tmp = PhotonNetwork.Instantiate("Player", spawnPos, Quaternion.Euler(0, 180, 0), 0);
+
+        }
     }
     
 

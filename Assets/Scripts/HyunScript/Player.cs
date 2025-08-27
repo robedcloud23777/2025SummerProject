@@ -18,8 +18,8 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
     public float punchInputCooldown = 0.3f;
     public float kickInputCooldown = 0.5f;
 
-    private bool canPunch = true;
-    private bool canKick = true;
+    public bool canPunch = true;
+    public bool canKick = true;
 
     public float Health
     {

@@ -223,6 +223,8 @@ MonoBehaviour:
   punchAttack: {fileID: 8999585845043890138}
   punchInputCooldown: 0.4
   kickInputCooldown: 0.5
+  canPunch: 1
+  canKick: 1
 --- !u!114 &8999585845043890138
 MonoBehaviour:
   m_ObjectHideFlags: 0

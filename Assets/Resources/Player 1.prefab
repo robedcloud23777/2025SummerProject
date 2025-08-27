@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitObject: {fileID: 7163905091734546688}
-  cooldown: 0.3
+  cooldown: 0.4
   rb: {fileID: 7694578400084563635}
   playerMove: {fileID: 1841202915769879157}
 --- !u!114 &8796349845153986869

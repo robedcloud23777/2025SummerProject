@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     public Transform groundCheck;
     private bool isGrounded;
     private IPunObservable _punObservableImplementation;
-
+    private Player _player;
     private PlayerAnimation playerAnim;
 
     [HideInInspector] public bool guarding;
@@ -18,6 +18,7 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     private void Start()
     {
         playerAnim = GetComponent<PlayerAnimation>();
+        _player = GetComponent<Player>();
     }
 
 
@@ -26,7 +27,8 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
         if(!photonView.IsMine) return;
         CheckGround();
         //print(guarding);
-        Move();
+        
+        if(_player.canKick&& _player.canPunch) Move();
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
     }
 

@@ -198,13 +198,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             if (PhotonNetwork.IsMasterClient)
             {
                 spawnPos = new Vector3(-5, 0, 0);
-                GameObject tmp = PhotonNetwork.Instantiate("PlayerTest 1", spawnPos, Quaternion.identity, 0);
+                GameObject tmp = PhotonNetwork.Instantiate("Player", spawnPos, Quaternion.identity, 0);
 
             }
             else
             {
                 spawnPos = new Vector3(5, 0, 0);
-                GameObject tmp = PhotonNetwork.Instantiate("PlayerTest 1", spawnPos, Quaternion.Euler(0, 180, 0), 0);
+                GameObject tmp = PhotonNetwork.Instantiate("Player 1", spawnPos, Quaternion.Euler(0, 180, 0), 0);
 
             }
         }

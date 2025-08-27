@@ -983,7 +983,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1248097101}
   - component: {fileID: 1248097103}
-  - component: {fileID: 1248097102}
   m_Layer: 5
   m_Name: HPBAR2
   m_TagString: Untagged
@@ -1013,21 +1012,6 @@ RectTransform:
   m_AnchoredPosition: {x: 421, y: 402.88}
   m_SizeDelta: {x: -1371.999, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1248097102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248097100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40c0eb9c2990adc4f9a9e0ffc5ddc236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxhp: 20
-  HpSlider: {fileID: 1248097103}
-  speed: 15
 --- !u!114 &1248097103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,7 +1395,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1812569092}
   - component: {fileID: 1812569094}
-  - component: {fileID: 1812569093}
   m_Layer: 5
   m_Name: HPBAR1
   m_TagString: Untagged
@@ -1441,21 +1424,6 @@ RectTransform:
   m_AnchoredPosition: {x: -435, y: 402.88}
   m_SizeDelta: {x: -1372, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1812569093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812569091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40c0eb9c2990adc4f9a9e0ffc5ddc236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxhp: 20
-  HpSlider: {fileID: 1812569094}
-  speed: 15
 --- !u!114 &1812569094
 MonoBehaviour:
   m_ObjectHideFlags: 0

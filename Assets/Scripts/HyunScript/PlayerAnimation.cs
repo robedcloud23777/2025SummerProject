@@ -68,10 +68,9 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetTrigger("Dodge");
     }
 
-    public void TriggerDie()
+    public void TriggerDie(bool isDead)
     {
-        if (!IsInState("Die"))
-            animator.SetTrigger("Die");
+        animator.SetBool("Die", isDead);
     }
 
     // 🔹 애니메이션 이벤트에서 호출할 수 있도록 public 처리

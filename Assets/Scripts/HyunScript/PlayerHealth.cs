@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviourPun, IDamageable
 
         if (health < 0f)
         {
-            playerAnim.TriggerDie();
+            //playerAnim.TriggerDie();
         }
     }
 

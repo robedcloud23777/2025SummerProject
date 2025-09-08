@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviourPunCallbacks, IHitable
 {
     public float health = 100f;
+    public float otherHealth = 100f;
     public PlayerKickAttack kickAttack;
     public PlayerAttack punchAttack;
     private PlayerMove playerMove;
@@ -28,7 +29,7 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
         set
         {
             health = value;
-           // 체력 닳았을때 이펙트 추가.
+            // 체력 닳았을때 이펙트 추가.
         }
     }
 
@@ -40,9 +41,22 @@ public class Player : MonoBehaviourPunCallbacks, IHitable
 
     void Update()
     {
+        if (otherPlayer == null)
+        {
+            Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+            foreach (var p in players)
+            {
+                if (!p.photonView.IsMine)
+                {
+                    otherPlayer = p;
+                    break;
+                }
+            }
+        }
         if (!photonView.IsMine)
             return;
-        HealthManager.Instance.SetHealth(health);
+        otherHealth = otherPlayer.health;
+        HealthManager.Instance.SetHealth(health, otherHealth);
 
         if (Input.GetKeyDown(KeyCode.J))
         {

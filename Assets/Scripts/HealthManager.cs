@@ -27,18 +27,23 @@ public class HealthManager : MonoBehaviour
         }
 
         pv = GetComponent<PhotonView>(); // 할당
-    }
+    } 
 
-    public void SetHealth(float newHealth)
+    public void SetHealth(float health, float otherhealth)
     {
         if (PhotonNetwork.IsMasterClient)
-            player1Health = newHealth;
+        {
+            player1Health = health;
+            player2Health = otherhealth;
+        }
         else
-            player2Health = newHealth;
+        {
+            player1Health = otherhealth;
+            player2Health = health;
+        }
 
         HealthUI();
     }
-
 
     public void HealthUI()
     {
